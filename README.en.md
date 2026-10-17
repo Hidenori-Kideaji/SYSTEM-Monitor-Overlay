@@ -23,7 +23,9 @@ Start with Windows is optional and is enabled only when you turn on its toggle. 
 
 ![Settings window example](docs/images/Settings-preview.png)
 
-![Overlay rendering examples at Full HD and 4K](docs/images/Resolution-preview.png)
+![Full HD and 4K overlays on black screen illustrations against a white background](docs/images/Resolution-preview-v2.png)
+
+The black rectangles represent screens; the white area is the surrounding illustration background. The horizontal green bar shows VRAM usage and the vertical blue bar shows RAM usage. The actual overlay has a transparent background: only the bars and readings appear over your desktop.
 
 These images use test values and settings. They do not represent initial defaults or live measurements.
 
