@@ -1,0 +1,21 @@
+SYSTEM Monitor Overlay v1.0.0
+
+Windows 10/11 x64 / .NET Framework 4.8
+
+1. ZIPを、書き込み可能なフォルダへ展開します。
+2. SYSTEM Monitor Overlay.exeを起動します。
+3. 最初から通知領域に常駐します。通知領域アイコンをダブルクリックして設定を開きます。
+4. ×は非表示です。終了は通知領域アイコンの右クリック→「終了」です。
+
+設定はexeと同じフォルダのConfig.iniに保存します。
+更新時は既存アプリを終了し、Config.iniを残してexeを差し替えてください。
+スタートアップ登録後にexeを移動した場合は、登録をOFF→ONで更新してください。
+
+exeは未署名です。公式リポジトリのReleasesから入手し、SHA256SUMS.txtでハッシュを照合できます。
+ソースコードと詳しい説明:
+https://github.com/Hidenori-Kideaji/SYSTEM-Monitor-Overlay
+
+取得できないセンサー値は--で表示します。主プロセスと計測用の子プロセス2つが動作します。
+診断ファイルGPU-diagnostics.txtがローカルに作成される場合があります。ネットワーク送信は行いません。
+
+MIT License。利用・再配布の際は同梱のLICENSEを参照してください。

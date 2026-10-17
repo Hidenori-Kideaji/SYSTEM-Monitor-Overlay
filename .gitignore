@@ -1,0 +1,26 @@
+# Build products and local regression-test runs
+/outputs/
+/tests/
+/dist/
+/build*/
+/backup*/
+*.exe
+*.pdb
+*.zip
+
+# Personal configuration, diagnostics and temporary files
+Config.ini
+Config.ini.*
+GPU-diagnostics.txt
+*.log
+*.tmp
+*.bak
+.vs/
+.vscode/
+.idea/
+.codex/
+.agents/
+.env
+.env.*
+Thumbs.db
+Desktop.ini
