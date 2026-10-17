@@ -260,23 +260,38 @@ internal static class RegressionTests
             }
             overlay.Hide();
 
-            using (Bitmap preview = new Bitmap(900, 430))
+            using (Bitmap preview = new Bitmap(1200, 600))
             using (Graphics graphics = Graphics.FromImage(preview))
-            using (Font caption = ModernTypography.Create(14, false, GraphicsUnit.Pixel))
+            using (Font caption = ModernTypography.Create(22, false, GraphicsUnit.Pixel))
             {
-                graphics.Clear(Color.FromArgb(25, 29, 36));
+                // White page, black display: keep the screen boundary distinct from
+                // the transparent overlay. Render the real application pixels.
+                graphics.Clear(Color.White);
+                graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
                 overlay.SetUsage(68, 42);
                 overlay.SetAnchorLeft(false);
                 foreach (int scale in new[] { 1, 2 })
                 {
+                    Rectangle screen = scale == 1
+                        ? new Rectangle(32, 104, 360, 203)
+                        : new Rectangle(440, 104, 720, 405);
                     overlay.UpdateDisplayBounds(new Rectangle(0, 0, 1920 * scale, 1080 * scale));
                     overlay.SetGpuTextOptions(true, true, 19, 0, 1, 17, 12);
-                    graphics.DrawString(scale == 1 ? "1920 x 1080 : 1x" : "3840 x 2160 : 2x",
-                        caption, Brushes.LightGray, scale == 1 ? 20 : 350, 18);
+                    graphics.DrawString(scale == 1 ? "Full HD / 1920 x 1080 / 1x" : "4K / 3840 x 2160 / 2x",
+                        caption, Brushes.Black, screen.Left, 54);
+                    graphics.FillRectangle(Brushes.Black, screen);
                     using (Bitmap frame = overlay.RenderFrame())
-                        graphics.DrawImageUnscaled(frame, (scale == 1 ? 300 : 860) - frame.Width, 60);
+                    {
+                        Check(frame.Width <= screen.Width && frame.Height <= screen.Height,
+                            "preview overlay fits black display at " + scale + "x");
+                        graphics.DrawImageUnscaled(frame, screen.Right - frame.Width, screen.Top);
+                    }
                 }
-                preview.Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resolution-preview.png"), ImageFormat.Png);
+                graphics.DrawString("Green: VRAM / GPU    Blue: RAM    |    Sample values / screen illustration",
+                    caption, Brushes.Black, 32, 548);
+                Check(preview.GetPixel(0, 0).ToArgb() == Color.White.ToArgb(), "preview background is white");
+                Check(preview.GetPixel(40, 290).ToArgb() == Color.Black.ToArgb(), "preview display is black");
+                preview.Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resolution-preview-v2.png"), ImageFormat.Png);
             }
         }
     }
