@@ -1,5 +1,7 @@
 # SYSTEM Monitor Overlay
 
+**日本語 | [English](README.en.md)**
+
 Windows向けの軽量なGPU・メモリ監視アプリです。画面の角にVRAMとRAMの使用率をバーで表示し、GPU電力・温度を文字で重ねて表示できます。
 
 A portable Windows system monitor with corner overlays for VRAM/RAM usage and optional GPU power/temperature text. Written in C# with WinForms; supports AMD Radeon and NVIDIA GeForce telemetry where the driver provides it.
